@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="my-4">{{ post.title }}</h1>
+       <div class="row justify-content-center">
+            <div class="col-md-8">
+                <img class="img-fluid" src="{{ url_for('static', filename='images/' + post.image_id) }}" alt="{{ post.title }}">
+                <div class="text-center">
+                    <p><strong>Автор:</strong> {{ post.author }}</p>
+                    <p><strong>Дата публикации:</strong> {{ post.date.strftime('%d.%m.%Y') }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <p>{{ post.text }}</p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h3>Оставьте комментарий</h3>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="commentText">Ваш комментарий</label>
+                        <textarea class="form-control" id="commentText" name="commentText" rows="3"></textarea>
+                    </div>
+                     <input type="hidden" name="parent_id" value=""> <!-- Важное дополнение! -->
+                    <button type="submit" class="btn btn-primary mt-2">Отправить</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h3>Комментарии</h3>
+                {% macro render_comment(comment) %}
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <img src="{{ url_for('static', filename='images/ava.jpg') }}" class="rounded-circle" alt="Аватар">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mt-0">{{ comment.author }}</h5>
+                            <p>{{ comment.text }}</p>
+                            {% if comment.replies %}
+                                <div class="ms-5 mt-3"> <!-- Отступ для вложенных комментариев -->
+                                    {% for reply in comment.replies %}
+                                        {{ render_comment(reply) }} <!-- Рекурсивный вызов макроса для ответов -->
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endmacro %}
+        
+                {% for comment in post.comments %}
+                    {{ render_comment(comment) }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
