@@ -1,0 +1,39 @@
+{# templates/user_create.html #}
+{% extends 'base.html' %}
+{% import "_user_form.html" as user_form %}
+
+{% block content %}
+    <h1>Создание пользователя</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
+
+        <div class="mb-3">
+            {{ form.login.label(class="form-label") }}
+            {{ form.login(class="form-control", **{'aria-describedby': 'loginHelp'}) }}
+            {% if form.login.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.login.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control", **{'aria-describedby': 'passwordHelp'}) }}
+            {% if form.password.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+            {{ user_form.render_user_form(form, title) }}
+        
+       
+        
+    </form>
+{% endblock %}

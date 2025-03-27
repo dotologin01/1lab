@@ -1,0 +1,92 @@
+{# templates/index.html #}
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Лабораторная работа №2</h1>
+        <p>Разработайте веб-приложение с использованием фреймворка Flask.</p>
+
+        <h3>1. Работа с данными запроса</h3>
+        <p>В приложении реализовано отображение данных запроса, включая параметры URL, заголовки запроса, cookie и параметры формы.</p>
+        <p>Перейдите по <a href="{{ url_for('request_data') }}">ссылке</a>, чтобы просмотреть данные запроса.</p>
+
+        <h3>Примеры данных запроса:</h3>
+        <ul>
+            <li><a href="{{ url_for('request_data', name='John', age=30) }}">С параметрами name и age</a></li>
+            <li><a href="{{ url_for('request_data', city='New York', country='USA') }}">С параметрами city и country</a></li>
+            <li><a href="{{ url_for('request_data', cookie_test='test_value') }}">Проверка Cookie (Установите Cookie ниже)</a></li>
+            <li><a href="{{ url_for('request_data') }}">Без параметров</a></li>
+        </ul>
+
+        <h3>2. Работа с Cookie "my_cookie":</h3>
+        <p>Текущее значение Cookie 'my_cookie':
+            {% if cookie_value %}
+                {{ cookie_value }}
+            {% else %}
+                <em>Cookie не установлена</em>
+            {% endif %}
+        </p>
+
+        <form method="post" action="/">
+            <div class="mb-3">
+                <label for="cookie_value" class="form-label">Установить значение для cookie 'my_cookie'</label>
+                <input type="text" class="form-control" id="cookie_value" name="cookie_value">
+            </div>
+            <button type="submit" class="btn btn-primary" name="action" value="set">Установить Cookie</button>
+            <button type="submit" class="btn btn-danger" name="action" value="delete">Удалить Cookie</button>
+        </form>
+
+        <h3>3. Форма для демонстрации параметров формы:</h3>
+        <form method="POST" action="{{ url_for('request_data') }}">
+            <div class="mb-3">
+                <label for="name" class="form-label">Имя:</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Сообщение:</label>
+                <textarea class="form-control" id="message" name="message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить форму</button>
+        </form>
+
+        <h3>4. Форма с обработкой ошибок</h3>
+        <p>Создайте страницу с формой для ввода номера телефона. Форма должна состоять из текстового поля и кнопки «Проверить». По нажатию на кнопку данные формы должны отправляться на сервер при помощи метода POST.</p>
+
+        <p>На стороне сервера необходимо реализовать проверку, что в поле введён номер телефона заданного формата:</p>
+        <ul>
+            <li>имеет длину 10-11 цифр;</li>
+            <li>может содержать дополнительные символы: пробелы, круглые скобки, дефисы, точки, +.</li>
+        </ul>
+
+        <p>Если номер не соответствует формату – выводить сообщение об ошибке. Сообщение об ошибке должно быть разным в зависимости от типа ошибки:</p>
+        <ul>
+            <li>«Недопустимый ввод. Неверное количество цифр.» – если в номере не 10 или 11 цифр (номер должен содержать 11 цифр если он начинается с «+7» или «8», в остальных случаях – 10 цифр),</li>
+            <li>«Недопустимый ввод. В номере телефона встречаются недопустимые символы.» – если в номере встречаются другие символы помимо цифр и приведённых выше дополнительных символов.</li>
+        </ul>
+
+        <p>Проверку на другие типы ошибок (не приведённые выше) проводить не нужно.</p>
+        <p>В случае обнаружения ошибки использовать использовать стандартные классы фреймворка Bootstrap:</p>
+        <ul>
+            <li>класс <code>is-invalid</code> для подсвечивания поля формы,</li>
+            <li>класс <code>invalid-feedback</code> для контейнера с текстом сообщения об ошибке.</li>
+        </ul>
+
+        <p>Преобразовывать введённый номер к формату 8-***-***-**-** и выводить. Ниже представлены примеры допустимых форматов ввода номера телефона:</p>
+        <ul>
+            <li>+7 (123) 456-75-90</li>
+            <li>8(123)4567590</li>
+            <li>123.456.75.90</li>
+        </ul>
+
+        <p>Перейдите по <a href="{{ url_for('phone_form') }}">ссылке</a>, чтобы проверить форму ввода номера телефона.</p>
+
+        <h3>Примеры номеров для проверки:</h3>
+        <ul>
+            <li><a href="{{ url_for('phone_form', phone='+7 (123) 456-75-90') }}">"+7 (123) 456-75-90"</a> (Правильный)</li>
+            <li><a href="{{ url_for('phone_form', phone='8(123)4567590') }}">"8(123)4567590"</a> (Правильный)</li>
+            <li><a href="{{ url_for('phone_form', phone='123.456.75.90') }}">"123.456.75.90"</a> (Правильный)</li>
+            <li><a href="{{ url_for('phone_form', phone='123456789') }}">"123456789"</a> (Неверное количество цифр)</li>
+            <li><a href="{{ url_for('phone_form', phone='123-abc-456') }}">"123-abc-456"</a> (Недопустимые символы)</li>
+        </ul>
+    </div>
+{% endblock %}

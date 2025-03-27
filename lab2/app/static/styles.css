@@ -1,0 +1,61 @@
+/* static/styles.css */
+
+/* Общие стили */
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+/* Стили для ссылок */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для навигации */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Стили для кода (примеры ввода) */
+code {
+    background-color: #f8f9fa;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+/* Стили для аватарок */
+.avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Стили для формы */
+.form-label {
+    font-weight: bold;
+}
+
+.is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+}

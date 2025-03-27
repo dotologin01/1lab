@@ -1,0 +1,46 @@
+{# templates/reports_users.html #}
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Отчет по пользователям</h1>
+  <table class="table">
+      <thead>
+          <tr>
+              <th>#</th>
+              <th>Пользователь</th>
+              <th>Количество посещений</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for user in users.items %}
+              <tr>
+                  <td>{{ users.per_page * (users.page - 1) + loop.index }}</td>
+                  <td>{{ user[0] }}</td>
+                  <td>{{ user[1] }}</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  <a href="{{ url_for('reports.reports_users_csv') }}" class="btn btn-primary">Экспорт в CSV</a>
+  <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        {% if users.has_prev %}
+          <li class="page-item">
+            <a class="page-link" href="{{ url_for('reports.reports_users', page=users.prev_num) }}" aria-label="Previous">
+              <span aria-hidden="true">«</span>
+            </a>
+          </li>
+          {% endif %}
+          {% for pg in users.iter_pages() %}
+              <li class="page-item {% if users.page == pg %}active{% endif %}"><a class="page-link" href="{{url_for('reports.reports_users', page=pg)}}">{{pg}}</a></li>
+          {% endfor %}
+          {% if users.has_next %}
+          <li class="page-item">
+              <a class="page-link" href="{{ url_for('reports.reports_users', page=users.next_num) }}" aria-label="Next">
+                <span aria-hidden="true">»</span>
+              </a>
+            </li>
+            {% endif %}
+      </ul>
+  </nav>
+{% endblock %}

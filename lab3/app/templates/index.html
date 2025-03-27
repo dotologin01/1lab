@@ -1,0 +1,11 @@
+{# templates/index.html #}
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Главная страница</h1>
+    {% if current_user.is_authenticated %}
+        <p>Добро пожаловать, {{ current_user.username }}!</p>
+    {% else %}
+        <p>Добро пожаловать! Пожалуйста, войдите в систему.</p>
+    {% endif %}
+{% endblock %}

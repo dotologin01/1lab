@@ -1,0 +1,10 @@
+{# templates/user_edit.html #}
+{% extends 'base.html' %}
+{% import "_user_form.html" as user_form %}
+
+{% block content %}
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ user_form.render_user_form(form, title, flag=False) }}
+    </form>
+{% endblock %}

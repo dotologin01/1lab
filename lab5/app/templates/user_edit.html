@@ -1,0 +1,12 @@
+{# templates/user_edit.html #}
+{% extends 'base.html' %}
+{% import "_user_form.html" as user_form %}
+
+{% block content %}
+    <h1>Редактирование пользователя</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ user_form.render_user_form(form, title, is_admin=(current_user.role.name == 'admin')) }}
+        
+    </form>
+{% endblock %}

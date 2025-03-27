@@ -1,0 +1,72 @@
+/* static/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 800px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.navbar-nav .nav-link:hover {
+    color: #fff;
+}
+
+h1, h2 {
+    color: #343a40;
+}
+
+.table {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    background-color: #343a40;
+    color: #fff;
+    border-color: #454d55;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+
+.btn-create {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border-radius: 0.25rem;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.invalid-feedback {
+    display: block;
+}
+.d-flex {
+    align-items: center; /* Выравниваем элементы по вертикали */
+    margin-top: 10px; /* Отодвигаем их от предыдущих элементов */
+}

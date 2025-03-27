@@ -1,0 +1,23 @@
+{# templates/phone_form.html #}
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Форма ввода номера телефона</h1>
+
+    <form method="post" action="{{ url_for('phone_form') }}">
+        <div class="mb-3">
+            <label for="phone" class="form-label">Номер телефона:</label>
+            <input type="text" class="form-control {% if error_message %}is-invalid{% endif %}" id="phone" name="phone" value="{{ phone_number or '' }}">
+            {% if error_message %}
+                <div class="invalid-feedback">
+                    {{ error_message }}
+                </div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Проверить</button>
+    </form>
+
+    {% if formatted_number %}
+        <p><strong>Отформатированный номер:</strong> {{ formatted_number }}</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{# templates/reports/reports_pages.html #}
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Отчет по страницам</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Страница</th>
+                <th>Количество посещений</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for page_item in pages.items %} <!-- Используйте pages.items для итерации -->
+            <tr>
+                <td>{{ (pages.page - 1) * pages.per_page + loop.index }}</td>
+                <td>{{ page_item[0] }}</td>
+                <td>{{ page_item[1] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if pages.has_prev %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('reports.reports_pages', page=pages.prev_num) }}" tabindex="-1">Предыдущая</a>
+                </li>
+            {% endif %}
+            {% for p in pages.iter_pages() %}
+                <li class="page-item {% if pages.page == p %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('reports.reports_pages', page=p) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+            {% if pages.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('reports.reports_pages', page=pages.next_num) }}">Следующая</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <a href="{{ url_for('reports.reports_pages_csv') }}" class="btn btn-primary">Экспорт в CSV</a>
+{% endblock %}

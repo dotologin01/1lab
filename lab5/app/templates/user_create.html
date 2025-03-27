@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Создание пользователя</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
+
+        <div class="mb-3">
+            {{ form.login.label(class="form-label") }}
+            {{ form.login(class="form-control", **{'aria-describedby': 'loginHelp'}) }}
+            {% if form.login.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.login.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control", **{'aria-describedby': 'passwordHelp'}) }}
+            {% if form.password.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.first_name.label(class="form-label") }}
+            {{ form.first_name(class="form-control") }}
+            {% if form.first_name.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.first_name.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.last_name.label(class="form-label") }}
+            {{ form.last_name(class="form-control") }}
+            {% if form.last_name.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.last_name.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.middle_name.label(class="form-label") }}
+            {{ form.middle_name(class="form-control") }}
+            {% if form.middle_name.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.middle_name.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.role_id.label(class="form-label") }}
+            {{ form.role_id(class="form-control") }}
+            {% if form.role_id.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.role_id.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Создать</button>
+    </form>
+{% endblock %}

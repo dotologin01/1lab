@@ -1,0 +1,46 @@
+{# templates/request_data.html #}
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Данные запроса</h1>
+
+    <h2>Параметры URL:</h2>
+    {% if url_params %}
+        <ul>
+            {% for key, value in url_params.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет параметров URL.</p>
+    {% endif %}
+
+    <h2>Заголовки запроса:</h2>
+    <ul>
+        {% for key, value in headers.items() %}
+            <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Cookie:</h2>
+    {% if cookies %}
+        <ul>
+            {% for key, value in cookies.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет cookie.</p>
+    {% endif %}
+
+    <h2>Параметры формы:</h2>
+    {% if form_params %}
+        <ul>
+            {% for key, value in form_params.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет параметров формы.</p>
+    {% endif %}
+{% endblock %}
